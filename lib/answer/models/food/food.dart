@@ -10,6 +10,7 @@ part 'food.g.dart';
 class Food with _$Food {
   factory Food({
     required String id,
+    required String badge,
     required String content,
     required List<String> solution,
     required Feedback feedback,
