@@ -100,13 +100,11 @@ class _AnswerScreenState extends State<AnswerScreen> {
         child: FutureBuilder(
             future: api.createNewQuestion(widget.question),
             builder: (ctx, snapshot) {
-              print(snapshot);
-
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              final Food food = snapshot.data!;
+              final Food food = snapshot.data!.copyWith(badge: 3);
 
               return SingleChildScrollView(
                 child: Column(
@@ -151,6 +149,9 @@ class _AnswerScreenState extends State<AnswerScreen> {
                                   styleSheet: MarkdownStyleSheet(
                                     p: Theme.of(context).textTheme.bodyLarge,
                                   ),
+                                  onTapLink: (text, url, title) {
+                                    launchUrl(Uri.parse(url!));
+                                  },
                                 ),
                                 const SizedBox(height: 32),
                                 ...solutionSection(food),
@@ -229,7 +230,9 @@ class _AnswerScreenState extends State<AnswerScreen> {
 
     return [
       Text(
-        'Better When Eaten This Way!',
+        food.badge != 3
+            ? 'Better When Eaten This Way!'
+            : 'Try those instead...',
         style: Theme.of(context)
             .textTheme
             .titleLarge!
