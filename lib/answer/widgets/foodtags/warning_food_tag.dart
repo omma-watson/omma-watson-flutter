@@ -19,7 +19,7 @@ class WarningFoodTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        '주의',
+        'Caution',
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: _foregroundColor,
               fontWeight: FontWeight.w600,

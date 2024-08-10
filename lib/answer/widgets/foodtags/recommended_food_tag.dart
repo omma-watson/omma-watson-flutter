@@ -19,7 +19,7 @@ class RecommendedFoodTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        '추천',
+        'Recommend',
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: _foregroundColor,
               fontWeight: FontWeight.w600,

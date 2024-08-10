@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Color _foregroundColor = Color(0xFF155CFF);
-Color _backgroundColor = const Color(0xFF91B2FF);
+const Color _backgroundColor = Color(0xFFC5D6FF);
 
 class SafeFoodTag extends StatelessWidget {
   const SafeFoodTag({super.key});
@@ -19,7 +19,7 @@ class SafeFoodTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        '양호',
+        'Satisfactory',
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: _foregroundColor,
               fontWeight: FontWeight.w600,

@@ -19,7 +19,7 @@ class DangerFoodTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        '위험',
+        'Danger',
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               color: _foregroundColor,
               fontWeight: FontWeight.w600,

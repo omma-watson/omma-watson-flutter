@@ -15,7 +15,7 @@ class ViewNutritionButton extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: const Color(0xFFE4ECF1),
+        color: const Color(0xFFF3F6F8),
       ),
       child: GestureDetector(
         onTap: () => Navigator.of(context).push(
@@ -23,11 +23,16 @@ class ViewNutritionButton extends StatelessWidget {
             builder: (ctx) => NutritionFactScreen(foodName: foodName),
           ),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('영양소 함량 보기'),
-            Icon(
+            Text(
+              'View Nutritional Information',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: const Color(0xFF474660),
+                  ),
+            ),
+            const Icon(
               Icons.arrow_forward_ios_rounded,
               size: 16,
             ),
