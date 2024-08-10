@@ -87,7 +87,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
     }
   }
 
-  bool _isLoading = true;
+  final bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +123,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                 return Skeletonizer(
                   enabled: true,
                   ignoreContainers: true,
-                  effect: PulseEffect(),
+                  effect: const PulseEffect(),
                   child: bodyWidget(food),
                 );
               }
