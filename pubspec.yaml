@@ -20,6 +20,7 @@ dependencies:
   retrofit: ^4.1.0
   retrofit_generator: ^8.1.2
   dio: ^5.5.0+1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
