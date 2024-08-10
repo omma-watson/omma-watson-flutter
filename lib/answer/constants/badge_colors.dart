@@ -6,14 +6,14 @@ class BadgeColors {
   static Color warning = const Color(0xFFF6A000);
   static Color danger = const Color(0xFFFF4040);
 
-  static Color? getColorByBadge(String badge) {
-    if (badge == '추천' || badge == 'recommended') {
+  static Color? getColorByBadge(int badge) {
+    if (badge == 0) {
       return recommended;
-    } else if (badge == '양호') {
+    } else if (badge == 1) {
       return safe;
-    } else if (badge == '주의') {
+    } else if (badge == 2) {
       return warning;
-    } else if (badge == '위험') {
+    } else if (badge == 3) {
       return danger;
     }
     return null;

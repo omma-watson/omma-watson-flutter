@@ -100,13 +100,13 @@ class _AnswerScreenState extends State<AnswerScreen> {
         child: FutureBuilder(
             future: api.createNewQuestion(widget.question),
             builder: (ctx, snapshot) {
+              print(snapshot);
+
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               }
 
               final Food food = snapshot.data!;
-
-              print(snapshot);
 
               return SingleChildScrollView(
                 child: Column(
