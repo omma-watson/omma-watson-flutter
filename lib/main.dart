@@ -15,6 +15,7 @@ void main() {
 final dio = Dio(
   BaseOptions(
     baseUrl: 'https://omma-watson-api.vercel.app/api',
+    contentType: Headers.jsonContentType,
   ),
 );
 
