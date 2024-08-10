@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:omma_watson_flutter/answer/constants/badge_colors.dart';
@@ -8,6 +11,9 @@ import 'package:omma_watson_flutter/answer/widgets/view_nutrition_button.dart';
 import 'package:omma_watson_flutter/api/api.dart';
 import 'package:omma_watson_flutter/main.dart';
 import 'package:omma_watson_flutter/utils/string.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -80,14 +86,102 @@ class AnswerScreen extends StatefulWidget {
 
 class _AnswerScreenState extends State<AnswerScreen> {
   final api = Api(dio);
+  final GlobalKey _shareButtonKey = GlobalKey();
+  final ScreenshotController _screenshotController = ScreenshotController();
 
-  Future<void> _launchUrl(String url) async {
-    if (!await launchUrl(Uri.parse(url))) {
-      throw Exception('Could not launch $url');
+  Food? _food;
+
+  void _onShareButtonPressed() async {
+    final food = _food;
+    if (food == null) {
+      return;
     }
-  }
 
-  final bool _isLoading = true;
+    final snackBar = ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Preparing the image...'),
+      ),
+    );
+
+    final Uint8List uint8list = await _screenshotController.captureFromWidget(
+      AspectRatio(
+        aspectRatio: 1,
+        child: ColoredBox(
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: FoodTags.getFoodTageByBadge(food.badge) ??
+                    const SizedBox.shrink(),
+              ),
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: getTitleTextByBadge(food.badge),
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                      ),
+                      TextSpan(
+                        text: food.foodName,
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: BadgeColors.getColorByBadge(
+                                food.badge,
+                              ),
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              bannerSection(food.badge),
+              Expanded(
+                child: Center(
+                  child: Image.asset(
+                    'assets/logo_${food.badge}.png',
+                    height: 40,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    final tempDir = await getTemporaryDirectory();
+    final file = await File('${tempDir.path}/${food.foodName}.png').create();
+    file.writeAsBytesSync(uint8list);
+
+    snackBar.close();
+
+    RenderBox shareButtonBox =
+        _shareButtonKey.currentContext?.findRenderObject() as RenderBox;
+    Offset shareButtonPosition = shareButtonBox.localToGlobal(Offset.zero);
+    Rect shareButtonRect = Rect.fromLTWH(
+      shareButtonPosition.dx,
+      shareButtonPosition.dy,
+      shareButtonBox.paintBounds.width,
+      shareButtonBox.paintBounds.height,
+    );
+    await Share.shareXFiles(
+      [XFile(file.path)],
+      sharePositionOrigin: shareButtonRect,
+    );
+    await file.delete();
+
+    snackBar.close();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +202,20 @@ class _AnswerScreenState extends State<AnswerScreen> {
           ),
           color: Colors.black,
         ),
+        actions: [
+          IconButton(
+            key: _shareButtonKey,
+            onPressed: _onShareButtonPressed,
+            icon: const Icon(
+              Icons.ios_share,
+              size: 24,
+            ),
+            color: Colors.black,
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+        ],
       ),
       body: SafeArea(
         child: FutureBuilder(
@@ -127,6 +235,8 @@ class _AnswerScreenState extends State<AnswerScreen> {
                   child: bodyWidget(food),
                 );
               }
+
+              _food = food;
 
               return bodyWidget(food);
             }),
