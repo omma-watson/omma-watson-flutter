@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:omma_watson_flutter/answer/answer_screen.dart';
 
 import 'home/home_screen.dart';
 
@@ -18,7 +17,12 @@ final dio = Dio(
     baseUrl: 'https://omma-watson-api.vercel.app/api',
     contentType: Headers.jsonContentType,
   ),
-);
+)..interceptors.add(LogInterceptor(
+    requestBody: true,
+    responseBody: true,
+    requestHeader: true,
+    responseHeader: true,
+  ));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
