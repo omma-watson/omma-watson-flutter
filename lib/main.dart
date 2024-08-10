@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
       title: '엄마 왓슨',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF155CFF),
+          primary: const Color(0xFF155CFF),
+        ),
       ),
       home: Container(),
     );
