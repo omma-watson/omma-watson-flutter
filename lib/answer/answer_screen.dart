@@ -128,91 +128,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                 );
               }
 
-<<<<<<< Updated upstream
-              final Food food = snapshot.data!;
-
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 24,
-                              right: 24,
-                              top: 12,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ...titleSection(food),
-                                const SizedBox(height: 18),
-                                ViewNutritionButton(
-                                  foodName: food.foodName,
-                                ),
-                              ],
-                            ),
-                          ),
-                          bannerSection(food.badge),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 24,
-                              right: 24,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 32),
-                                MarkdownBody(
-                                  data: food.content,
-                                  styleSheet: MarkdownStyleSheet(
-                                    p: Theme.of(context).textTheme.bodyLarge,
-                                  ),
-                                  onTapLink: (text, url, title) {
-                                    launchUrl(Uri.parse(url!));
-                                  },
-                                ),
-                                const SizedBox(height: 32),
-                                ...solutionSection(food),
-                                const SizedBox(height: 16),
-                              ],
-                            ),
-                          ),
-                          // const Divider(
-                          //   height: 32,
-                          //   thickness: 8,
-                          //   color: Color(0xFFD9D9D9),
-                          // ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 24,
-                              right: 24,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 16),
-                                ...momChoiceSection(food),
-                                const SizedBox(height: 48)
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-=======
               return bodyWidget(food);
->>>>>>> Stashed changes
             }),
       ),
     );
@@ -232,7 +148,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                   padding: const EdgeInsets.only(
                     left: 24,
                     right: 24,
-                    top: 24,
+                    top: 12,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
