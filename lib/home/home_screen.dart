@@ -1,14 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:omma_watson_flutter/answer/answer_screen.dart';
 import 'package:omma_watson_flutter/answer/models/question/question.dart';
 import 'package:styled_text/styled_text.dart';
 
-import '../answer/answer_screen.dart';
-import '../answer/models/question/question.dart';
-import '../api/api.dart';
-import '../main.dart';
 import 'models/popular_question.dart';
 
 const List<String> exampleSearchKeywords = [
@@ -56,7 +50,7 @@ class HomeScreen extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => AnswerScreen(
-          question: Question.new(query: queryController.text),
+          question: Question(query: queryController.text),
         ),
       ),
     );
@@ -77,70 +71,87 @@ class HomeScreen extends StatelessWidget {
               )
             ],
           ),
-          child: Column(
+          child: Stack(
             children: [
-              SingleChildScrollView(
-                clipBehavior: Clip.none,
-                scrollDirection: Axis.horizontal,
-                child: Wrap(
-                  spacing: 8,
-                  children: exampleSearchKeywords
-                      .map(
-                        (keyword) => ActionChip(
-                          onPressed: () {},
-                          visualDensity: VisualDensity.compact,
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          backgroundColor: Colors.white,
-                          shape: const StadiumBorder(
-                            side: BorderSide(color: Colors.transparent),
-                          ),
-                          label: StyledText(
-                            text: keyword,
-                            tags: {
-                              'color': StyledTextTag(
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
+              Column(
+                children: [
+                  SingleChildScrollView(
+                    clipBehavior: Clip.none,
+                    scrollDirection: Axis.horizontal,
+                    child: Wrap(
+                      spacing: 8,
+                      children: exampleSearchKeywords
+                          .map(
+                            (keyword) => ActionChip(
+                              onPressed: () {},
+                              visualDensity: VisualDensity.compact,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
                               ),
-                            },
-                          ),
-                        ),
-                      )
-                      .toList(),
+                              backgroundColor: Colors.white,
+                              shape: const StadiumBorder(
+                                side: BorderSide(color: Colors.transparent),
+                              ),
+                              label: StyledText(
+                                text: keyword,
+                                tags: {
+                                  'color': StyledTextTag(
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                },
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  TextField(
+                    controller: queryController,
+                    decoration: InputDecoration(
+                      hintText: 'Ask anything about food',
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade500,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () => _onSearchButtonPressed(context),
+                        color: Theme.of(context).colorScheme.primary,
+                        icon: const Icon(Icons.search),
+                      ),
+                      border: const OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 246),
+                ],
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: IgnorePointer(
+                  child: Image.asset(
+                    'assets/home_character.png',
+                    height: 300,
+                  ),
                 ),
               ),
-              const SizedBox(height: 4),
-              TextField(
-                controller: queryController,
-                decoration: InputDecoration(
-                  hintText: 'Ask anything about food',
-                  hintStyle: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey.shade500,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () => _onSearchButtonPressed(context),
-                    color: Theme.of(context).colorScheme.primary,
-                    icon: const Icon(Icons.search),
-                  ),
-                  border: const OutlineInputBorder(),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: const BorderSide(color: Colors.transparent),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: const BorderSide(color: Colors.transparent),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 200),
             ],
           ),
         ),
@@ -218,7 +229,11 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          // title: Image.asset('assets/logo.png'),
+          title: Image.asset(
+            'assets/logo.png',
+            height: 60,
+          ),
+          toolbarHeight: 80,
           actions: const [],
         ),
         body: SafeArea(
