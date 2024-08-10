@@ -92,8 +92,23 @@ class NutritionFactScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(foodName),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        leadingWidth: 64,
+        toolbarHeight: 48,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 28,
+          ),
+          color: Colors.black,
+        ),
       ),
       body: SafeArea(
         child: FutureBuilder(
