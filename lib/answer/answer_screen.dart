@@ -101,11 +101,13 @@ class _AnswerScreenState extends State<AnswerScreen> {
               query: widget.question.query.stripHtmlIfNeeded(),
             )),
             builder: (ctx, snapshot) {
+              print(snapshot);
+
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              final Food food = snapshot.data!.copyWith(badge: 3);
+              final Food food = snapshot.data!;
 
               return SingleChildScrollView(
                 child: Column(
@@ -192,48 +194,36 @@ class _AnswerScreenState extends State<AnswerScreen> {
   }
 
   Widget bannerSection(int badge) {
-    String? backgroundImagePath;
-    String? foregroundImagePath;
-    double? padding;
-    print('badge : $badge');
+    // String? backgroundImagePath;
+    // String? foregroundImagePath;
+    String? bannerImagePath;
+    // double? padding;
 
     if (badge == 0) {
-      backgroundImagePath = 'assets/recommended_background.png';
-      foregroundImagePath = 'assets/recommended_character.png';
-      padding = 0;
+      // backgroundImagePath = 'assets/recommended_background.png';
+      // foregroundImagePath = 'assets/recommended_character.png';
+      bannerImagePath = 'assets/recommend_banner.png';
+      // padding = 0;
     } else if (badge == 1) {
-      backgroundImagePath = 'assets/satisfactory_background.png';
-      foregroundImagePath = 'assets/satisfactory_character.png';
-      padding = 4;
+      // backgroundImagePath = 'assets/satisfactory_background.png';
+      // foregroundImagePath = 'assets/satisfactory_character.png';
+      bannerImagePath = 'assets/satisfactory_banner.png';
+      // padding = 4;
     } else if (badge == 2) {
-      backgroundImagePath = 'assets/caution_background.png';
-      foregroundImagePath = 'assets/caution_character.png';
-      padding = 25;
+      // backgroundImagePath = 'assets/caution_background.png';
+      // foregroundImagePath = 'assets/caution_character.png';
+      bannerImagePath = 'assets/caution_banner.png';
+      // padding = 25;
     } else if (badge == 3) {
-      backgroundImagePath = 'assets/dangerous_background.png';
-      foregroundImagePath = 'assets/dangerous_character.png';
-      padding = 6;
+      // backgroundImagePath = 'assets/dangerous_background.png';
+      // foregroundImagePath = 'assets/dangerous_character.png';
+      bannerImagePath = 'assets/dangerous_banner.png';
+      // padding = 6;
     }
 
     return SizedBox(
       width: double.infinity,
-      child: Stack(
-        children: [
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Image.asset(backgroundImagePath!),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: EdgeInsets.only(right: padding!),
-              child: Image.asset(foregroundImagePath!, width: 213),
-            ),
-          ),
-        ],
-      ),
+      child: Image.asset(bannerImagePath!),
     );
   }
 
