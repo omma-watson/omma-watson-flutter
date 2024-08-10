@@ -50,6 +50,16 @@ class HomeScreen extends StatelessWidget {
         Container(
           color: Theme.of(context).colorScheme.primary,
           padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.primary,
+                spreadRadius: 100,
+                offset: const Offset(0, -100),
+              )
+            ],
+          ),
           child: Column(
             children: [
               SingleChildScrollView(
