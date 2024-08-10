@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:omma_watson_flutter/answer/answer_screen.dart';
+import 'package:omma_watson_flutter/answer/models/question/question.dart';
 import 'package:styled_text/styled_text.dart';
 
 import '../answer/answer_screen.dart';
@@ -45,23 +47,19 @@ List<PopularQuestion> popularQuestions = [
   ),
 ];
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  final TextEditingController queryController = TextEditingController();
 
-class _HomeScreenState extends State<HomeScreen> {
-  final Api api = Api(dio);
-
-  void _onSearchButtonPressed() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AnswerScreen()),
+  void _onSearchButtonPressed(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => AnswerScreen(
+          question: Question.new(query: queryController.text),
+        ),
+      ),
     );
-    final test = await api.createNewQuestion(Question(query: '마라탕'));
-    log(test.toString());
   }
 
   Widget _buildBody(BuildContext context) {
@@ -113,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 4),
               TextField(
+                controller: queryController,
                 decoration: InputDecoration(
                   hintText: 'Ask anything about food',
                   hintStyle: TextStyle(
@@ -126,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     vertical: 12,
                   ),
                   suffixIcon: IconButton(
-                    onPressed: _onSearchButtonPressed,
+                    onPressed: () => _onSearchButtonPressed(context),
                     color: Theme.of(context).colorScheme.primary,
                     icon: const Icon(Icons.search),
                   ),

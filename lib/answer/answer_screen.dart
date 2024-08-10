@@ -1,152 +1,184 @@
 import 'package:flutter/material.dart';
 import 'package:omma_watson_flutter/answer/constants/badge_colors.dart';
 import 'package:omma_watson_flutter/answer/models/food/food.dart';
+import 'package:omma_watson_flutter/answer/models/question/question.dart';
 import 'package:omma_watson_flutter/answer/widgets/foodtags/food_tags.dart';
 import 'package:omma_watson_flutter/answer/widgets/ratio_bar.dart';
 import 'package:omma_watson_flutter/answer/widgets/view_nutrition_button.dart';
+import 'package:omma_watson_flutter/api/api.dart';
+import 'package:omma_watson_flutter/main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-Food mockFood = Food.fromJson(
-  {
-    'id': '1',
-    'content':
-        '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
-    'badge': '위험',
-    'solution': [
-      '1단계로\n낮춰 보기',
-      '물을 많이\n마시기',
-      '채소를 많이 넣어 먹기',
-    ],
-    'feedback': {
-      'good': 45,
-      'bad': 12,
-      'comment':
-          '대부분의 마미들이 임신 중 매운 음식은 주의해야 한다고 생각해요. 하지만 가끔 먹는 것은 괜찮다는 의견도 있어요.',
-    },
-    'products': [
-      {
-        'title': '바삭 통살 유린기 430g',
-        'img':
-            'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
-        'price': {
-          'original': 9200,
-          'final': 6580,
-        },
-        'url':
-            'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
-      },
-      {
-        'title': '바삭 통살 유린기 430g',
-        'img':
-            'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
-        'price': {
-          'original': 9200,
-          'final': 6580,
-        },
-        'url':
-            'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
-      },
-      {
-        'title': '바삭 통살 유린기 430g',
-        'img':
-            'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
-        'price': {
-          'original': 9200,
-          'final': 6580,
-        },
-        'url':
-            'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
-      },
-    ],
-    'food_name': '마라탕', // 이렇게 바꿔서 검색하는데 쓸거
-    'persona': '임신 24주차',
-  },
-);
+// Food food = Food.fromJson(
+//   {
+//     'id': '1',
+//     'content':
+//         '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
+//     'badge': '위험',
+//     'solution': [
+//       '1단계로\n낮춰 보기',
+//       '물을 많이\n마시기',
+//       '채소를 많이 넣어 먹기',
+//     ],
+//     'feedback': {
+//       'good': 45,
+//       'bad': 12,
+//       'comment':
+//           '대부분의 마미들이 임신 중 매운 음식은 주의해야 한다고 생각해요. 하지만 가끔 먹는 것은 괜찮다는 의견도 있어요.',
+//     },
+//     'products': [
+//       {
+//         'title': '바삭 통살 유린기 430g',
+//         'img':
+//             'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
+//         'price': {
+//           'original': 9200,
+//           'final': 6580,
+//         },
+//         'url':
+//             'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
+//       },
+//       {
+//         'title': '바삭 통살 유린기 430g',
+//         'img':
+//             'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
+//         'price': {
+//           'original': 9200,
+//           'final': 6580,
+//         },
+//         'url':
+//             'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
+//       },
+//       {
+//         'title': '바삭 통살 유린기 430g',
+//         'img':
+//             'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
+//         'price': {
+//           'original': 9200,
+//           'final': 6580,
+//         },
+//         'url':
+//             'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
+//       },
+//     ],
+//     'food_name': '마라탕', // 이렇게 바꿔서 검색하는데 쓸거
+//     'persona': '임신 24주차',
+//   },
+// );
 
 class AnswerScreen extends StatefulWidget {
-  const AnswerScreen({super.key});
+  const AnswerScreen({
+    super.key,
+    required this.question,
+  });
+
+  final Question question;
 
   @override
   State<AnswerScreen> createState() => _AnswerScreenState();
 }
 
 class _AnswerScreenState extends State<AnswerScreen> {
+  final api = Api(dio);
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        // backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Colors.white,
         toolbarHeight: 0,
       ),
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              foregroundColor: Colors.white,
-              surfaceTintColor: Colors.transparent,
-              expandedHeight: 100,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  '마라탕 2단계로 먹어도 되나요?',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                color: Colors.white,
-                width: double.infinity,
-                padding: const EdgeInsets.all(24),
+        child: FutureBuilder(
+            future: api.createNewQuestion(widget.question),
+            builder: (ctx, snapshot) {
+              final Food? food = snapshot.data;
+
+              print(snapshot);
+
+              if (food == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              return SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 12),
-                    ...titleSection(),
-                    const SizedBox(height: 16),
-                    ViewNutritionButton(
-                      foodName: mockFood.foodName,
-                    ),
-                    const SizedBox(height: 16),
+                    // SliverAppBar(
+                    //   pinned: true,
+                    //   floating: true,
+                    //   foregroundColor: Colors.white,
+                    //   surfaceTintColor: Colors.transparent,
+                    //   expandedHeight: 100,
+                    //   backgroundColor: Theme.of(context).colorScheme.primary,
+                    //   flexibleSpace: FlexibleSpaceBar(
+                    //     centerTitle: true,
+                    //     title: Text(
+                    //       '마라탕 2단계로 먹어도 되나요?',
+                    //       style:
+                    //           Theme.of(context).textTheme.titleMedium!.copyWith(
+                    //                 fontWeight: FontWeight.bold,
+                    //                 color: Colors.white,
+                    //               ),
+                    //     ),
+                    //   ),
+                    // ),
                     Container(
-                      color: Colors.grey[300],
+                      color: Colors.white,
                       width: double.infinity,
-                      height: 210,
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 12),
+                          ...titleSection(food),
+                          const SizedBox(height: 16),
+                          ViewNutritionButton(
+                            foodName: food.foodName,
+                          ),
+                          const SizedBox(height: 16),
+                          Container(
+                            color: Colors.grey[300],
+                            width: double.infinity,
+                            height: 210,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            food.content,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                          ),
+                          const SizedBox(height: 40),
+                          ...solutionSection(food),
+                          const SizedBox(height: 40),
+                          ...momChoiceSection(food),
+                          // const SizedBox(height: 40),
+                          // ...opinionSection(food),
+                          // const SizedBox(height: 40),
+                          // ...productSection(food),
+                          const SizedBox(height: 40),
+                          ...buttonSection(),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      mockFood.content,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    const SizedBox(height: 40),
-                    ...solutionSection(),
-                    const SizedBox(height: 40),
-                    ...momChoiceSection(),
-                    const SizedBox(height: 40),
-                    ...opinionSection(),
-                    const SizedBox(height: 40),
-                    ...productSection(),
-                    const SizedBox(height: 40),
-                    ...buttonSection(),
                   ],
                 ),
-              ),
-            ),
-          ],
-        ),
+              );
+            }),
       ),
     );
   }
 
-  List<Widget> solutionSection() {
+  List<Widget> solutionSection(Food food) {
     return [
       Text(
-        '꼭 먹어야 한다면?',
+        'Better When Eaten This Way!',
         style: Theme.of(context)
             .textTheme
             .titleLarge!
@@ -158,7 +190,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
         clipBehavior: Clip.none,
         child: Wrap(
           spacing: 12,
-          children: mockFood.solution
+          children: food.solution
               .map(
                 (solution) => Container(
                   width: 154,
@@ -189,24 +221,23 @@ class _AnswerScreenState extends State<AnswerScreen> {
     ];
   }
 
-  List<Widget> titleSection() {
+  List<Widget> titleSection(Food food) {
     return [
-      FoodTags.getFoodTageByBadge(mockFood.badge) ?? const SizedBox.shrink(),
+      FoodTags.getFoodTageByBadge(food.badge) ?? const SizedBox.shrink(),
       const SizedBox(height: 8),
       RichText(
         text: TextSpan(
           children: [
             TextSpan(
-              text: mockFood.foodName,
+              text: food.foodName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: BadgeColors.getColorByBadge(mockFood.badge),
+                    color: BadgeColors.getColorByBadge(food.badge),
                   ),
             ),
             TextSpan(
               text: getTitleTextByBadge(
-                  mockFood.foodName[mockFood.foodName.length - 1],
-                  mockFood.badge),
+                  food.foodName[food.foodName.length - 1], food.badge),
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -217,7 +248,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
     ];
   }
 
-  List<Widget> momChoiceSection() {
+  List<Widget> momChoiceSection(Food food) {
     return [
       Text(
         '마미들의 선택',
@@ -228,18 +259,18 @@ class _AnswerScreenState extends State<AnswerScreen> {
       ),
       const SizedBox(height: 16),
       Text(
-        mockFood.feedback.comment,
+        food.feedback.comment,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
-      const SizedBox(height: 16),
-      FeedbackRatioBar(
-        good: mockFood.feedback.good,
-        bad: mockFood.feedback.bad,
-      ),
+      // const SizedBox(height: 16),
+      // FeedbackRatioBar(
+      //   good: food.feedback.good,
+      //   bad: food.feedback.bad,
+      // ),
     ];
   }
 
-  List<Widget> opinionSection() {
+  List<Widget> opinionSection(Food food) {
     return [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -299,7 +330,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
     ];
   }
 
-  List<Widget> productSection() {
+  List<Widget> productSection(Food food) {
     return [
       Text(
         '다음은 검증된 상품들이에요!',
@@ -314,7 +345,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
         clipBehavior: Clip.none,
         child: Wrap(
           spacing: 12,
-          children: mockFood.products
+          children: food.products
               .map(
                 (product) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

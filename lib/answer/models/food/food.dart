@@ -9,7 +9,6 @@ part 'food.g.dart';
 @freezed
 class Food with _$Food {
   factory Food({
-    required String id,
     required String badge,
     required String content,
     required List<String> solution,

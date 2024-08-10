@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:omma_watson_flutter/answer/answer_screen.dart';
 
 import 'home/home_screen.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           primary: const Color(0xFF155CFF),
         ),
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
