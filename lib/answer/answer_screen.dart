@@ -8,9 +8,10 @@ import 'package:omma_watson_flutter/answer/widgets/view_nutrition_button.dart';
 import 'package:omma_watson_flutter/api/api.dart';
 import 'package:omma_watson_flutter/main.dart';
 import 'package:omma_watson_flutter/utils/string.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Food food = Food.fromJson(
+Food mockFood = Food.fromJson(
   {
     'id': '1',
     'content':
@@ -86,6 +87,8 @@ class _AnswerScreenState extends State<AnswerScreen> {
     }
   }
 
+  bool _isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,10 +117,18 @@ class _AnswerScreenState extends State<AnswerScreen> {
             builder: (ctx, snapshot) {
               print(snapshot);
 
+              final Food food = snapshot.data ?? mockFood;
+
               if (snapshot.data == null) {
-                return const Center(child: CircularProgressIndicator());
+                return Skeletonizer(
+                  enabled: true,
+                  ignoreContainers: true,
+                  effect: PulseEffect(),
+                  child: bodyWidget(food),
+                );
               }
 
+<<<<<<< Updated upstream
               final Food food = snapshot.data!;
 
               return SingleChildScrollView(
@@ -199,7 +210,192 @@ class _AnswerScreenState extends State<AnswerScreen> {
                   ],
                 ),
               );
+=======
+              return bodyWidget(food);
+>>>>>>> Stashed changes
             }),
+      ),
+    );
+  }
+
+  Widget bodyWidget(Food food) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            color: Colors.white,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 24,
+                    right: 24,
+                    top: 24,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...titleSection(food),
+                      const SizedBox(height: 18),
+                      ViewNutritionButton(
+                        foodName: food.foodName,
+                      ),
+                    ],
+                  ),
+                ),
+                bannerSection(food.badge),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 24,
+                    right: 24,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 32),
+                      MarkdownBody(
+                        data: food.content,
+                        styleSheet: MarkdownStyleSheet(
+                          p: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        onTapLink: (text, url, title) {
+                          launchUrl(Uri.parse(url!));
+                        },
+                      ),
+                      const SizedBox(height: 32),
+                      ...solutionSection(food),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
+                // const Divider(
+                //   height: 32,
+                //   thickness: 8,
+                //   color: Color(0xFFD9D9D9),
+                // ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 24,
+                    right: 24,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 16),
+                      ...momChoiceSection(food),
+                      const SizedBox(height: 48)
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget skeletonBodyWidget(Food food) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            color: Colors.white,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 24,
+                    right: 24,
+                    top: 24,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 2, horizontal: 8),
+                        child: Text(
+                          'Recommend',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'My baby loves\nSteamed Duck with Chives!',
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                      ),
+                      const SizedBox(height: 18),
+                      ViewNutritionButton(
+                        foodName: food.foodName,
+                      ),
+                    ],
+                  ),
+                ),
+                bannerSection(food.badge),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 24,
+                    right: 24,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 32),
+                      MarkdownBody(
+                        data: food.content,
+                        styleSheet: MarkdownStyleSheet(
+                          p: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        onTapLink: (text, url, title) {
+                          launchUrl(Uri.parse(url!));
+                        },
+                      ),
+                      const SizedBox(height: 32),
+                      ...solutionSection(food),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
+                // const Divider(
+                //   height: 32,
+                //   thickness: 8,
+                //   color: Color(0xFFD9D9D9),
+                // ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 24,
+                    right: 24,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 16),
+                      ...momChoiceSection(food),
+                      const SizedBox(height: 48)
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -258,7 +454,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
             .titleLarge!
             .copyWith(fontWeight: FontWeight.bold),
       ),
-      const SizedBox(height: 18),
+      const SizedBox(height: 32),
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
@@ -347,7 +543,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
           ],
         ),
       ),
-      const SizedBox(height: 12),
+      const SizedBox(height: 18),
       Text(
         food.feedback.comment,
         style: Theme.of(context).textTheme.bodyLarge,
