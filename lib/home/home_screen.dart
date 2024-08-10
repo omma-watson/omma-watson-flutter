@@ -173,7 +173,7 @@ class HomeScreen extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Trending Questions',
+            'Trending Questions 🔥',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
