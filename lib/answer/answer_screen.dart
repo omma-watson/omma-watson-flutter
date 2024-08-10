@@ -450,7 +450,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                   ),
             ),
             TextSpan(
-              text: 'Moms\' Choices',
+              text: '\nMoms\' Choices',
               style: Theme.of(context)
                   .textTheme
                   .titleLarge!
@@ -460,10 +460,16 @@ class _AnswerScreenState extends State<AnswerScreen> {
         ),
       ),
       const SizedBox(height: 18),
-      Text(
-        food.feedback.comment,
-        style: Theme.of(context).textTheme.bodyLarge,
-      ),
+      // Text(
+      //   food.feedback.comment,
+      //   style: Theme.of(context).textTheme.bodyLarge,
+      // ),
+      MarkdownBody(
+        data: food.feedback.comment,
+        styleSheet: MarkdownStyleSheet(
+          p: Theme.of(context).textTheme.bodyLarge,
+        ),
+      )
     ];
   }
 
