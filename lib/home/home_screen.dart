@@ -46,6 +46,16 @@ class HomeScreen extends StatelessWidget {
 
   final TextEditingController queryController = TextEditingController();
 
+  void _onExampleSearchKeywordPressed(BuildContext context, String keyword) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => AnswerScreen(
+          question: Question(query: keyword),
+        ),
+      ),
+    );
+  }
+
   void _onSearchButtonPressed(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -83,7 +93,10 @@ class HomeScreen extends StatelessWidget {
                       children: exampleSearchKeywords
                           .map(
                             (keyword) => ActionChip(
-                              onPressed: () {},
+                              onPressed: () => _onExampleSearchKeywordPressed(
+                                context,
+                                keyword,
+                              ),
                               visualDensity: VisualDensity.compact,
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 4,
@@ -176,43 +189,50 @@ class HomeScreen extends StatelessWidget {
             spacing: 12,
             children: popularQuestions
                 .map(
-                  (question) => Container(
-                    width: 180,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.grey.shade200,
+                  (question) => InkWell(
+                    onTap: () => _onExampleSearchKeywordPressed(
+                      context,
+                      question.question,
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 24,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        StyledText(
-                          text: question.question,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          tags: {
-                            'color': StyledTextTag(
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
+                    borderRadius: BorderRadius.circular(16),
+                    child: Ink(
+                      width: 180,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.grey.shade200,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 24,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          StyledText(
+                            text: question.question,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
                             ),
-                          },
-                        ),
-                        Text(
-                          'Pregnancy ${question.pregnancyWeek} weeks',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.primary,
+                            tags: {
+                              'color': StyledTextTag(
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            },
                           ),
-                        ),
-                      ],
+                          Text(
+                            'Pregnancy ${question.pregnancyWeek} weeks',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )
