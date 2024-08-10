@@ -163,7 +163,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 246),
+                  const SizedBox(height: 240),
                 ],
               ),
               Positioned(
@@ -171,7 +171,7 @@ class HomeScreen extends StatelessWidget {
                 right: 0,
                 child: IgnorePointer(
                   child: Image.asset(
-                    'assets/home_character.png',
+                    'assets/home_character.gif',
                     height: 300,
                   ),
                 ),
