@@ -92,8 +92,19 @@ class _AnswerScreenState extends State<AnswerScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        toolbarHeight: 0,
-        surfaceTintColor: Colors.transparent,
+        surfaceTintColor: Colors.white,
+        toolbarHeight: 48,
+        leadingWidth: 64,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 28,
+          ),
+          color: Colors.black,
+        ),
       ),
       body: SafeArea(
         child: FutureBuilder(
@@ -122,7 +133,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                             padding: const EdgeInsets.only(
                               left: 24,
                               right: 24,
-                              top: 24,
+                              top: 12,
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
