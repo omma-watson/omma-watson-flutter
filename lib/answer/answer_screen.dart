@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:omma_watson_flutter/answer/constants/badge_colors.dart';
 import 'package:omma_watson_flutter/answer/models/food/food.dart';
-import 'package:omma_watson_flutter/answer/widgets/foodtags/danger_food_tag.dart';
 import 'package:omma_watson_flutter/answer/widgets/foodtags/food_tags.dart';
-import 'package:omma_watson_flutter/answer/widgets/foodtags/safe_food_tag.dart';
 import 'package:omma_watson_flutter/answer/widgets/ratio_bar.dart';
 import 'package:omma_watson_flutter/answer/widgets/view_nutrition_button.dart';
 
@@ -72,105 +70,70 @@ class AnswerScreen extends StatefulWidget {
 }
 
 class _AnswerScreenState extends State<AnswerScreen> {
-  final ScrollController _scrollController = ScrollController();
-
-  double scrollOffset = 0;
-
-  _scrollListner() {
-    if (_scrollController.offset < 300) {
-      setState(() {
-        scrollOffset = _scrollController.offset;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_scrollListner);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        toolbarHeight: 0,
+      ),
       body: SafeArea(
         child: CustomScrollView(
-          controller: _scrollController,
           slivers: [
-            SliverSafeArea(
-              sliver: SliverAppBar(
-                pinned: true,
-                floating: true,
-                toolbarHeight:
-                    scrollOffset < 140 ? 80 - ((scrollOffset / 140) * 40) : 40,
-                backgroundColor: scrollOffset < 140
-                    ? Theme.of(context).colorScheme.primary
-                    : Colors.white,
-                surfaceTintColor: Colors.transparent,
-                flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: EdgeInsets.zero,
-                  title: Center(
-                    child: Text(
-                      '마라탕 2단계로 먹어도 되나요?',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color:
-                              scrollOffset < 140 ? Colors.white : Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20 - ((scrollOffset / 140) * 4)),
-                    ),
-                  ),
+            SliverAppBar(
+              pinned: true,
+              floating: true,
+              foregroundColor: Colors.white,
+              surfaceTintColor: Colors.transparent,
+              expandedHeight: 100,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(
+                  '마라탕 2단계로 먹어도 되나요?',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                 ),
               ),
             ),
             SliverToBoxAdapter(
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-                child: Container(
-                  color: Colors.white,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 12),
-                      ...titleSection(),
-                      const SizedBox(height: 16),
-                      ViewNutritionButton(
-                        foodName: mockFood.foodName,
-                      ),
-                      const SizedBox(height: 16),
-                      Container(
-                        color: Colors.grey[300],
-                        width: double.infinity,
-                        height: 210,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        mockFood.content,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 40),
-                      ...solutionSection(),
-                      const SizedBox(height: 40),
-                      ...momChoiceSection(),
-                      const SizedBox(height: 40),
-                      ...opinionSection(),
-                      const SizedBox(height: 40),
-                      ...productSection(),
-                      const SizedBox(height: 40),
-                      ...buttonSection(),
-                    ],
-                  ),
+              child: Container(
+                color: Colors.white,
+                width: double.infinity,
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 12),
+                    ...titleSection(),
+                    const SizedBox(height: 16),
+                    ViewNutritionButton(
+                      foodName: mockFood.foodName,
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      color: Colors.grey[300],
+                      width: double.infinity,
+                      height: 210,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      mockFood.content,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    const SizedBox(height: 40),
+                    ...solutionSection(),
+                    const SizedBox(height: 40),
+                    ...momChoiceSection(),
+                    const SizedBox(height: 40),
+                    ...opinionSection(),
+                    const SizedBox(height: 40),
+                    ...productSection(),
+                    const SizedBox(height: 40),
+                    ...buttonSection(),
+                  ],
                 ),
               ),
             ),
