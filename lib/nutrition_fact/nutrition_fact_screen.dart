@@ -16,15 +16,15 @@ class NutritionFactScreen extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: DataTable(
         columns: [
-          const DataColumn(label: Text('영양성분')),
+          const DataColumn(label: Text('Nutrient')),
           DataColumn(
             label: Text(
-              '${nutritionFact.totalStandards.standardAmount}g 당 함량',
+              'Per ${nutritionFact.totalStandards.standardAmount}g',
             ),
           ),
           DataColumn(
             label: Text(
-              '총 내용량(${nutritionFact.totalStandards.foodWeight}g)당',
+              'Total(${nutritionFact.totalStandards.foodWeight}g)',
             ),
           ),
         ],

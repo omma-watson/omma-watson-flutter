@@ -1,6 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:styled_text/styled_text.dart';
 
+import '../answer/answer_screen.dart';
+import '../answer/models/question/question.dart';
+import '../api/api.dart';
+import '../main.dart';
 import 'models/popular_question.dart';
 
 const List<String> exampleSearchKeywords = [
@@ -39,16 +45,29 @@ List<PopularQuestion> popularQuestions = [
   ),
 ];
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  void _onSearchButtonPressed() {}
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final Api api = Api(dio);
+
+  void _onSearchButtonPressed() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AnswerScreen()),
+    );
+    final test = await api.createNewQuestion(Question(query: '마라탕'));
+    log(test.toString());
+  }
 
   Widget _buildBody(BuildContext context) {
     return ListView(
       children: [
         Container(
-          color: Theme.of(context).colorScheme.primary,
           padding: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
@@ -95,7 +114,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 4),
               TextField(
                 decoration: InputDecoration(
-                  hintText: '무엇이든 물어보세요',
+                  hintText: 'Ask anything about food',
                   hintStyle: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Colors.grey.shade500,
@@ -130,7 +149,7 @@ class HomeScreen extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            '가장 많이\n물어보고 있어요!',
+            'Most asked questions',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
@@ -147,8 +166,8 @@ class HomeScreen extends StatelessWidget {
             children: popularQuestions
                 .map(
                   (question) => Container(
-                    width: 154,
-                    height: 160,
+                    width: 180,
+                    height: 180,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: Colors.grey.shade200,
@@ -176,7 +195,7 @@ class HomeScreen extends StatelessWidget {
                           },
                         ),
                         Text(
-                          '임신 ${question.pregnancyWeek}주차',
+                          'Pregnancy ${question.pregnancyWeek} weeks',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.primary,
@@ -200,6 +219,8 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
+          // title: Image.asset('assets/logo.png'),
+          actions: const [],
         ),
         body: SafeArea(
           child: _buildBody(context),
