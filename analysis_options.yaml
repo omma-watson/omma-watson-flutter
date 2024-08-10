@@ -4,5 +4,10 @@ linter:
   rules:
 
 analyzer:
+  exclude:
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+  errors:
+    invalid_annotation_target: ignore
   plugins:
     - custom_lint
