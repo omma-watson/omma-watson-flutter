@@ -57,10 +57,20 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _onSearchButtonPressed(BuildContext context) {
+    final query = queryController.text;
+    if (query.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter a question'),
+        ),
+      );
+      return;
+    }
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => AnswerScreen(
-          question: Question(query: queryController.text),
+          question: Question(query: query),
         ),
       ),
     );
