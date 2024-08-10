@@ -4,7 +4,6 @@ import 'package:omma_watson_flutter/answer/constants/badge_colors.dart';
 import 'package:omma_watson_flutter/answer/models/food/food.dart';
 import 'package:omma_watson_flutter/answer/models/question/question.dart';
 import 'package:omma_watson_flutter/answer/widgets/foodtags/food_tags.dart';
-import 'package:omma_watson_flutter/answer/widgets/ratio_bar.dart';
 import 'package:omma_watson_flutter/answer/widgets/view_nutrition_button.dart';
 import 'package:omma_watson_flutter/api/api.dart';
 import 'package:omma_watson_flutter/main.dart';
@@ -91,7 +90,6 @@ class _AnswerScreenState extends State<AnswerScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.primary,
         backgroundColor: Colors.white,
         toolbarHeight: 0,
         surfaceTintColor: Colors.transparent,
@@ -296,7 +294,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
   List<Widget> titleSection(Food food) {
     return [
       FoodTags.getFoodTageByBadge(food.badge) ?? const SizedBox.shrink(),
-      const SizedBox(height: 18),
+      const SizedBox(height: 8),
       RichText(
         text: TextSpan(
           children: [
