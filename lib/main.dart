@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'home/home_screen.dart';
+
 void main() {
   runApp(
     const ProviderScope(
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
           primary: const Color(0xFF155CFF),
         ),
       ),
-      home: Container(),
+      home: const HomeScreen(),
     );
   }
 }
