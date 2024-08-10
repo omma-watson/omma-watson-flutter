@@ -155,12 +155,30 @@ class _AnswerScreenState extends State<AnswerScreen> {
                                 ),
                                 const SizedBox(height: 32),
                                 ...solutionSection(food),
-                                const SizedBox(height: 32),
-                                ...momChoiceSection(food),
-                                const SizedBox(height: 64),
+                                const SizedBox(height: 16),
                               ],
                             ),
                           ),
+                          // const Divider(
+                          //   height: 32,
+                          //   thickness: 8,
+                          //   color: Color(0xFFD9D9D9),
+                          // ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 24,
+                              right: 24,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 16),
+                                ...momChoiceSection(food),
+                                const SizedBox(height: 48)
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
