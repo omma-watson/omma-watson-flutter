@@ -145,7 +145,9 @@ class _AnswerScreenState extends State<AnswerScreen> {
                       const SizedBox(height: 12),
                       ...titleSection(),
                       const SizedBox(height: 16),
-                      const ViewNutritionButton(),
+                      ViewNutritionButton(
+                        foodName: mockFood.foodName,
+                      ),
                       const SizedBox(height: 16),
                       Container(
                         color: Colors.grey[300],
@@ -190,6 +192,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
       const SizedBox(height: 16),
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
         child: Wrap(
           spacing: 12,
           children: mockFood.solution
@@ -345,6 +348,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
       const SizedBox(height: 16),
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
         child: Wrap(
           spacing: 12,
           children: mockFood.products
