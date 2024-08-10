@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Color _foregroundColor = Color(0xFF30BB55);
-const Color _backgroundColor = Color(0xFFABFFC1);
+const Color _backgroundColor = Color.fromARGB(255, 226, 255, 233);
 
 class RecommendedFoodTag extends StatelessWidget {
   const RecommendedFoodTag({super.key});
@@ -9,7 +9,7 @@ class RecommendedFoodTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
       decoration: BoxDecoration(
         color: _backgroundColor,
         borderRadius: BorderRadius.circular(8),

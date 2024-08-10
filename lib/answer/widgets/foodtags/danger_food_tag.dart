@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Color _foregroundColor = Color(0xFFFF4040);
-const Color _backgroundColor = Color(0xFFFFD7D7);
+const Color _backgroundColor = Color.fromARGB(255, 255, 230, 230);
 
 class DangerFoodTag extends StatelessWidget {
   const DangerFoodTag({super.key});
@@ -9,7 +9,7 @@ class DangerFoodTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
       decoration: BoxDecoration(
         color: _backgroundColor,
         borderRadius: BorderRadius.circular(8),
