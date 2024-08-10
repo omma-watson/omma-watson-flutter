@@ -17,6 +17,9 @@ dependencies:
   freezed_annotation: ^2.4.4
   json_annotation: ^4.9.0
   styled_text: ^8.1.0
+  retrofit: ^4.1.0
+  retrofit_generator: ^8.1.2
+  dio: ^5.5.0+1
 
 dev_dependencies:
   flutter_test:
