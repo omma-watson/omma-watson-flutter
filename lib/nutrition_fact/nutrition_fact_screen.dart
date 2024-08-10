@@ -94,7 +94,13 @@ class NutritionFactScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(foodName),
+        title: Text(
+          foodName,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         leadingWidth: 64,
