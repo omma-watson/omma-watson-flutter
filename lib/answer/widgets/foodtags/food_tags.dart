@@ -10,14 +10,14 @@ class FoodTags {
   static Widget warning = const WarningFoodTag();
   static Widget danger = const DangerFoodTag();
 
-  static Widget? getFoodTageByBadge(String badge) {
-    if (badge == '추천') {
+  static Widget? getFoodTageByBadge(int badge) {
+    if (badge == 0) {
       return recommended;
-    } else if (badge == '양호') {
+    } else if (badge == 1) {
       return safe;
-    } else if (badge == '주의') {
+    } else if (badge == 2) {
       return warning;
-    } else if (badge == '위험') {
+    } else if (badge == 3) {
       return danger;
     }
     return null;

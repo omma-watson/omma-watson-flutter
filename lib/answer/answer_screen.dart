@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:omma_watson_flutter/answer/constants/badge_colors.dart';
 import 'package:omma_watson_flutter/answer/models/food/food.dart';
 import 'package:omma_watson_flutter/answer/models/question/question.dart';
@@ -9,62 +10,60 @@ import 'package:omma_watson_flutter/api/api.dart';
 import 'package:omma_watson_flutter/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// Food food = Food.fromJson(
-//   {
-//     'id': '1',
-//     'content':
-//         '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
-//     'badge': '추천',
-//     'solution': [
-//       '1단계로\n낮춰 보기',
-//       '물을 많이\n마시기',
-//       '채소를 많이 넣어 먹기',
-//     ],
-//     'feedback': {
-//       'good': 45,
-//       'bad': 12,
-//       'comment':
-//           '대부분의 마미들이 임신 중 매운 음식은 주의해야 한다고 생각해요. 하지만 가끔 먹는 것은 괜찮다는 의견도 있어요.',
-//     },
-//     'products': [
-//       {
-//         'title': '바삭 통살 유린기 430g',
-//         'img':
-//             'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
-//         'price': {
-//           'original': 9200,
-//           'final': 6580,
-//         },
-//         'url':
-//             'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
-//       },
-//       {
-//         'title': '바삭 통살 유린기 430g',
-//         'img':
-//             'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
-//         'price': {
-//           'original': 9200,
-//           'final': 6580,
-//         },
-//         'url':
-//             'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
-//       },
-//       {
-//         'title': '바삭 통살 유린기 430g',
-//         'img':
-//             'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
-//         'price': {
-//           'original': 9200,
-//           'final': 6580,
-//         },
-//         'url':
-//             'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
-//       },
-//     ],
-//     'food_name': '마라탕', // 이렇게 바꿔서 검색하는데 쓸거
-//     'persona': '임신 24주차',
-//   },
-// );
+Food food = Food.fromJson(
+  {
+    'id': '1',
+    'content':
+        '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
+    'badge': 3,
+    'solution': [
+      '1단계로\n낮춰 보기',
+      '물을 많이\n마시기',
+      '채소를 많이 넣어 먹기',
+    ],
+    'feedback': {
+      'comment':
+          '대부분의 마미들이 임신 중 매운 음식은 주의해야 한다고 생각해요. 하지만 가끔 먹는 것은 괜찮다는 의견도 있어요.',
+    },
+    'products': [
+      {
+        'title': '바삭 통살 유린기 430g',
+        'img':
+            'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
+        'price': {
+          'original': 9200,
+          'final': 6580,
+        },
+        'url':
+            'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
+      },
+      {
+        'title': '바삭 통살 유린기 430g',
+        'img':
+            'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
+        'price': {
+          'original': 9200,
+          'final': 6580,
+        },
+        'url':
+            'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
+      },
+      {
+        'title': '바삭 통살 유린기 430g',
+        'img':
+            'https://wisely.store/web/product/big/202407/3d6659b8bfadb61310c5836ed94f5921.jpg',
+        'price': {
+          'original': 9200,
+          'final': 6580,
+        },
+        'url':
+            'https://wisely.store/product/detail.html?product_no=1681&cate_no=104&display_group=1',
+      },
+    ],
+    'food_name': '마라탕', // 이렇게 바꿔서 검색하는데 쓸거
+    'persona': '임신 24주차',
+  },
+);
 
 class AnswerScreen extends StatefulWidget {
   const AnswerScreen({
@@ -107,6 +106,8 @@ class _AnswerScreenState extends State<AnswerScreen> {
 
               final Food food = snapshot.data!;
 
+              print(snapshot);
+
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -145,9 +146,11 @@ class _AnswerScreenState extends State<AnswerScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(height: 32),
-                                Text(
-                                  food.content,
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                MarkdownBody(
+                                  data: food.content,
+                                  styleSheet: MarkdownStyleSheet(
+                                    p: Theme.of(context).textTheme.bodyLarge,
+                                  ),
                                 ),
                                 const SizedBox(height: 32),
                                 ...solutionSection(food),
@@ -168,24 +171,25 @@ class _AnswerScreenState extends State<AnswerScreen> {
     );
   }
 
-  Widget bannerSection(String badge) {
+  Widget bannerSection(int badge) {
     String? backgroundImagePath;
     String? foregroundImagePath;
     double? padding;
+    print('badge : $badge');
 
-    if (badge == '추천') {
+    if (badge == 0) {
       backgroundImagePath = 'assets/recommended_background.png';
       foregroundImagePath = 'assets/recommended_character.png';
       padding = 0;
-    } else if (badge == '양호') {
+    } else if (badge == 1) {
       backgroundImagePath = 'assets/satisfactory_background.png';
       foregroundImagePath = 'assets/satisfactory_character.png';
       padding = 4;
-    } else if (badge == '주의') {
+    } else if (badge == 2) {
       backgroundImagePath = 'assets/caution_background.png';
       foregroundImagePath = 'assets/caution_character.png';
       padding = 25;
-    } else if (badge == '위험') {
+    } else if (badge == 3) {
       backgroundImagePath = 'assets/dangerous_background.png';
       foregroundImagePath = 'assets/dangerous_character.png';
       padding = 6;
@@ -275,27 +279,23 @@ class _AnswerScreenState extends State<AnswerScreen> {
       RichText(
         text: TextSpan(
           children: [
-            if (food.badge != '양호')
-              TextSpan(
-                text: getTitleTextByBadge(food.badge),
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
+            TextSpan(
+              text: getTitleTextByBadge(food.badge),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
+            ),
             TextSpan(
               text: food.foodName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: BadgeColors.getColorByBadge(food.badge),
+                    fontSize: 24,
+                    color: BadgeColors.getColorByBadge(
+                      food.badge,
+                    ),
                   ),
             ),
-            if (food.badge == '양호')
-              TextSpan(
-                text: getTitleTextByBadge(food.badge),
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
           ],
         ),
       )
@@ -525,16 +525,16 @@ class _AnswerScreenState extends State<AnswerScreen> {
   }
 }
 
-String? getTitleTextByBadge(String badge) {
-  if (badge == '추천') {
+String? getTitleTextByBadge(int badge) {
+  if (badge == 0) {
     return 'My baby loves\n';
-  } else if (badge == '양호') {
+  } else if (badge == 1) {
     // return ' is okay to eat!';
     return 'Feel free to enjoy\n';
-  } else if (badge == '주의') {
+  } else if (badge == 2) {
     return 'Be cautious with\n';
-  } else if (badge == '위험') {
-    return 'Extreme caution! Refrain from consuming\n';
+  } else if (badge == 3) {
+    return 'Extreme caution!\nRefrain from consuming ';
   }
   return null;
 }

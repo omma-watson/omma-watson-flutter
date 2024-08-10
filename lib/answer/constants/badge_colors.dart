@@ -7,7 +7,7 @@ class BadgeColors {
   static Color danger = const Color(0xFFFF4040);
 
   static Color? getColorByBadge(String badge) {
-    if (badge == '추천') {
+    if (badge == '추천' || badge == 'recommended') {
       return recommended;
     } else if (badge == '양호') {
       return safe;
