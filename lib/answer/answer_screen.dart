@@ -14,7 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 //     'id': '1',
 //     'content':
 //         '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
-//     'badge': '위험',
+//     'badge': '추천',
 //     'solution': [
 //       '1단계로\n낮춰 보기',
 //       '물을 많이\n마시기',
@@ -95,75 +95,68 @@ class _AnswerScreenState extends State<AnswerScreen> {
         // backgroundColor: Theme.of(context).colorScheme.primary,
         backgroundColor: Colors.white,
         toolbarHeight: 0,
+        surfaceTintColor: Colors.transparent,
       ),
       body: SafeArea(
         child: FutureBuilder(
             future: api.createNewQuestion(widget.question),
             builder: (ctx, snapshot) {
-              final Food? food = snapshot.data;
-
-              print(snapshot);
-
-              if (food == null) {
+              if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               }
+
+              final Food food = snapshot.data!;
 
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    // SliverAppBar(
-                    //   pinned: true,
-                    //   floating: true,
-                    //   foregroundColor: Colors.white,
-                    //   surfaceTintColor: Colors.transparent,
-                    //   expandedHeight: 100,
-                    //   backgroundColor: Theme.of(context).colorScheme.primary,
-                    //   flexibleSpace: FlexibleSpaceBar(
-                    //     centerTitle: true,
-                    //     title: Text(
-                    //       '마라탕 2단계로 먹어도 되나요?',
-                    //       style:
-                    //           Theme.of(context).textTheme.titleMedium!.copyWith(
-                    //                 fontWeight: FontWeight.bold,
-                    //                 color: Colors.white,
-                    //               ),
-                    //     ),
-                    //   ),
-                    // ),
                     Container(
                       color: Colors.white,
                       width: double.infinity,
-                      padding: const EdgeInsets.all(24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 12),
-                          ...titleSection(food),
-                          const SizedBox(height: 16),
-                          ViewNutritionButton(
-                            foodName: food.foodName,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 24,
+                              right: 24,
+                              top: 24,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ...titleSection(food),
+                                const SizedBox(height: 18),
+                                ViewNutritionButton(
+                                  foodName: food.foodName,
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 16),
-                          Container(
-                            color: Colors.grey[300],
-                            width: double.infinity,
-                            height: 210,
+                          bannerSection(food.badge),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 24,
+                              right: 24,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 32),
+                                Text(
+                                  food.content,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                const SizedBox(height: 32),
+                                ...solutionSection(food),
+                                const SizedBox(height: 32),
+                                ...momChoiceSection(food),
+                                const SizedBox(height: 64),
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 16),
-                          Text(
-                            food.content,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                          const SizedBox(height: 40),
-                          ...solutionSection(food),
-                          const SizedBox(height: 40),
-                          ...momChoiceSection(food),
-                          // const SizedBox(height: 40),
-                          // ...opinionSection(food),
-                          // const SizedBox(height: 40),
-                          // ...productSection(food),
-                          const SizedBox(height: 40),
-                          ...buttonSection(),
                         ],
                       ),
                     ),
@@ -175,7 +168,61 @@ class _AnswerScreenState extends State<AnswerScreen> {
     );
   }
 
+  Widget bannerSection(String badge) {
+    String? backgroundImagePath;
+    String? foregroundImagePath;
+    double? padding;
+
+    if (badge == '추천') {
+      backgroundImagePath = 'assets/recommended_background.png';
+      foregroundImagePath = 'assets/recommended_character.png';
+      padding = 0;
+    } else if (badge == '양호') {
+      backgroundImagePath = 'assets/satisfactory_background.png';
+      foregroundImagePath = 'assets/satisfactory_character.png';
+      padding = 4;
+    } else if (badge == '주의') {
+      backgroundImagePath = 'assets/caution_background.png';
+      foregroundImagePath = 'assets/caution_character.png';
+      padding = 25;
+    } else if (badge == '위험') {
+      backgroundImagePath = 'assets/dangerous_background.png';
+      foregroundImagePath = 'assets/dangerous_character.png';
+      padding = 6;
+    }
+
+    return SizedBox(
+      width: double.infinity,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Image.asset(backgroundImagePath!),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(right: padding!),
+              child: Image.asset(foregroundImagePath!, width: 213),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   List<Widget> solutionSection(Food food) {
+    Gradient backgroundGradient = const LinearGradient(
+      colors: [
+        Color(0xFFB7FFFE),
+        Color(0xFFF3F8FF),
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    );
+
     return [
       Text(
         'Better When Eaten This Way!',
@@ -184,7 +231,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
             .titleLarge!
             .copyWith(fontWeight: FontWeight.bold),
       ),
-      const SizedBox(height: 16),
+      const SizedBox(height: 32),
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
@@ -197,7 +244,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                   height: 160,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
-                    color: Colors.grey.shade200,
+                    gradient: backgroundGradient,
                   ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 24,
@@ -207,7 +254,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       solution,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             height: 1.4,
                           ),
@@ -224,10 +271,17 @@ class _AnswerScreenState extends State<AnswerScreen> {
   List<Widget> titleSection(Food food) {
     return [
       FoodTags.getFoodTageByBadge(food.badge) ?? const SizedBox.shrink(),
-      const SizedBox(height: 8),
+      const SizedBox(height: 18),
       RichText(
         text: TextSpan(
           children: [
+            if (food.badge != '양호')
+              TextSpan(
+                text: getTitleTextByBadge(food.badge),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
             TextSpan(
               text: food.foodName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -235,13 +289,13 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     color: BadgeColors.getColorByBadge(food.badge),
                   ),
             ),
-            TextSpan(
-              text: getTitleTextByBadge(
-                  food.foodName[food.foodName.length - 1], food.badge),
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
+            if (food.badge == '양호')
+              TextSpan(
+                text: getTitleTextByBadge(food.badge),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
           ],
         ),
       )
@@ -250,23 +304,31 @@ class _AnswerScreenState extends State<AnswerScreen> {
 
   List<Widget> momChoiceSection(Food food) {
     return [
-      Text(
-        '마미들의 선택',
-        style: Theme.of(context)
-            .textTheme
-            .titleLarge!
-            .copyWith(fontWeight: FontWeight.bold),
+      RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: '${food.persona} ',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF155CFF),
+                  ),
+            ),
+            TextSpan(
+              text: 'Moms\' Choices',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
       ),
-      const SizedBox(height: 16),
+      const SizedBox(height: 18),
       Text(
         food.feedback.comment,
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
-      // const SizedBox(height: 16),
-      // FeedbackRatioBar(
-      //   good: food.feedback.good,
-      //   bad: food.feedback.bad,
-      // ),
     ];
   }
 
@@ -463,33 +525,16 @@ class _AnswerScreenState extends State<AnswerScreen> {
   }
 }
 
-String? getTitleTextByBadge(String lastWord, String badge) {
-  bool finalConsonant = hasFinalConsonant(lastWord);
-
+String? getTitleTextByBadge(String badge) {
   if (badge == '추천') {
-    return (finalConsonant) ? '을 아기가 좋아해요!' : '를 아기가 좋아해요!';
+    return 'My baby loves\n';
   } else if (badge == '양호') {
-    return (finalConsonant) ? '은 먹어도 괜찮아요!' : '는 먹어도 괜찮아요!';
+    // return ' is okay to eat!';
+    return 'Feel free to enjoy\n';
   } else if (badge == '주의') {
-    return (finalConsonant) ? '은 주의가 필요해요!' : '는 주의가 필요해요!';
+    return 'Be cautious with\n';
   } else if (badge == '위험') {
-    return (finalConsonant) ? '은 주의가 필요해요!' : '는 주의가 필요해요!';
+    return 'Extreme caution! Refrain from consuming\n';
   }
   return null;
-}
-
-bool hasFinalConsonant(String char) {
-  const int baseCode = 0xAC00;
-  const int finalConsonantCount = 28;
-
-  int codeUnit = char.codeUnitAt(0);
-
-  if (codeUnit < 0xAC00 || codeUnit > 0xD7A3) {
-    return false;
-  }
-
-  int syllableIndex = codeUnit - baseCode;
-  int finalConsonantIndex = syllableIndex % finalConsonantCount;
-
-  return finalConsonantIndex > 0;
 }
