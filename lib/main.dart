@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: '엄마 왓슨',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Pretendard',
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF155CFF),
           primary: const Color(0xFF155CFF),
