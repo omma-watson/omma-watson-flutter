@@ -10,8 +10,6 @@ List<NutritionFact> mockNutritionFact = [
     {
       "id": "D303-148450000-0001",
       "metadata": {"식품명": "라면_짬뽕라면", "업체명": "해당없음", "대표식품명": "라면"},
-      // `totalStandards.영양성분함량기준량` (일반적으로 100g) 당 영양성분
-      // 영양성분 값 비워져 있는 건 잘려서 반환. key-value dynamic 하게 렌더링 할 것.
       "nutrition": {
         "인(mg)": "41",
         "철(mg)": "0",
@@ -37,7 +35,6 @@ List<NutritionFact> mockNutritionFact = [
         "비타민 A(μg RAE)": "17",
         "트랜스지방산(g)": "0.01"
       },
-      // `totalStandards.식품중량` (전체 상품 중량) 기준 영양성분
       "totalNutrition": {
         "인(mg)": "307.5",
         "당류(g)": "1.575",
