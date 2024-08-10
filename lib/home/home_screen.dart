@@ -16,16 +16,16 @@ const List<String> exampleSearchKeywords = [
 
 List<PopularQuestion> popularQuestions = [
   PopularQuestion(
-    question: '쫄깃쫄깃 <color>당면</color> 듬뿍 들어간 <color>마라탕</color> 2단계',
+    question: '쫄깃쫄깃 <color>당면</color> 듬뿍 들어간 <color>마라탕</color> 2단계 먹어도 되나요?',
     pregnancyWeek: 15,
   ),
   PopularQuestion(
-    question: '불어터진 <color>짬뽕</color>',
-    pregnancyWeek: 13,
+    question: '생크림 잔뜩 들어간 <color>딸기 케이크</color> 어떤가요?',
+    pregnancyWeek: 18,
   ),
   PopularQuestion(
-    question: '생크림 2번 추가한 <color>케이크</color>',
-    pregnancyWeek: 18,
+    question: '불어터진 <color>짬뽕</color> 괜찮죠?',
+    pregnancyWeek: 13,
   ),
   PopularQuestion(
     question: '쫄깃쫄깃 <color>당면</color> 듬뿍 들어간 <color>마라탕</color> 2단계',
@@ -88,7 +88,8 @@ class HomeScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 4,
                               ),
-                              backgroundColor: Colors.white,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 232, 239, 255),
                               shape: const StadiumBorder(
                                 side: BorderSide(color: Colors.transparent),
                               ),
@@ -112,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                   TextField(
                     controller: queryController,
                     decoration: InputDecoration(
-                      hintText: 'Ask anything about food',
+                      hintText: 'What food just popped into your head?',
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade500,
@@ -159,7 +160,7 @@ class HomeScreen extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            'Most asked questions',
+            'Trending Questions',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
@@ -177,7 +178,7 @@ class HomeScreen extends StatelessWidget {
                 .map(
                   (question) => Container(
                     width: 180,
-                    height: 180,
+                    height: 200,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: Colors.grey.shade200,
