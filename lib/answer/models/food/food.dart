@@ -10,12 +10,10 @@ part 'food.g.dart';
 class Food with _$Food {
   factory Food({
     required String id,
-    required String title,
     required String content,
-    required String solution,
+    required List<String> solution,
     required Feedback feedback,
     required List<Product> products,
-    // ignore: invalid_annotation_target
     @JsonKey(name: 'food_name') required String foodName,
     required String persona,
   }) = _Food;
