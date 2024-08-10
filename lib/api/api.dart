@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../answer/models/food/food.dart';
 import '../answer/models/nutrition_fact/nutrition_fact.dart';
+import '../answer/models/question/question.dart';
 
 part 'api.g.dart';
 
@@ -11,7 +12,7 @@ abstract class Api {
   factory Api(Dio dio) = _Api;
 
   @POST('/question/new')
-  Future<Food> createNewQuestion(@Body() Query query);
+  Future<Food> createNewQuestion(@Body() Question question);
 
   @GET('/nutrition-facts/{food_name}')
   Future<List<NutritionFact>> getNutritionFacts({
