@@ -247,7 +247,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
             .titleLarge!
             .copyWith(fontWeight: FontWeight.bold),
       ),
-      const SizedBox(height: 32),
+      const SizedBox(height: 18),
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
@@ -336,7 +336,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
           ],
         ),
       ),
-      const SizedBox(height: 18),
+      const SizedBox(height: 12),
       Text(
         food.feedback.comment,
         style: Theme.of(context).textTheme.bodyLarge,
