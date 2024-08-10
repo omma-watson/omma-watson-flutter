@@ -7,6 +7,7 @@ import 'package:omma_watson_flutter/answer/widgets/foodtags/food_tags.dart';
 import 'package:omma_watson_flutter/answer/widgets/view_nutrition_button.dart';
 import 'package:omma_watson_flutter/api/api.dart';
 import 'package:omma_watson_flutter/main.dart';
+import 'package:omma_watson_flutter/utils/string.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Food food = Food.fromJson(
@@ -96,7 +97,9 @@ class _AnswerScreenState extends State<AnswerScreen> {
       ),
       body: SafeArea(
         child: FutureBuilder(
-            future: api.createNewQuestion(widget.question),
+            future: api.createNewQuestion(widget.question.copyWith(
+              query: widget.question.query.stripHtmlIfNeeded(),
+            )),
             builder: (ctx, snapshot) {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
