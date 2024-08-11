@@ -15,6 +15,7 @@ class Food with _$Food {
     required Feedback feedback,
     required List<Product> products,
     @JsonKey(name: 'food_name') required String foodName,
+    @JsonKey(name: 'detailed_food_name') required String detailedFoodName,
     required String persona,
   }) = _Food;
 

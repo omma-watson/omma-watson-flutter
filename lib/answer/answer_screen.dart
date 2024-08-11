@@ -22,7 +22,7 @@ Food mockFood = Food.fromJson(
     'id': '1',
     'content':
         '마라탕의 매운 정도와 당면의 양에 따라 소화에 부담을 줄 수 있습니다. 마라탕에 포함된 고추기름과 향신료는 위산 분비를 촉진하여 속쓰림을 유발할 수 있으며, 당면은 소화가 잘 되지 않아 더부룩함을 느낄 수 있습니다. 또한, 마라탕의 높은 나트륨 함량은 부종을 유발할 수 있어 주의가 필요합니다. (출처: 대한영양사협회)',
-    'badge': 3,
+    'badge': 0,
     'solution': [
       '1단계로\n낮춰 보기',
       '물을 많이\n마시기',
@@ -68,6 +68,7 @@ Food mockFood = Food.fromJson(
       },
     ],
     'food_name': '마라탕', // 이렇게 바꿔서 검색하는데 쓸거
+    'detailed_food_name': 'Mara Soup', // 이렇게 바꿔서 검색하는데 쓸거
     'persona': '임신 24주차',
   },
 );
@@ -507,7 +508,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                   ),
             ),
             TextSpan(
-              text: food.foodName,
+              text: food.detailedFoodName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,

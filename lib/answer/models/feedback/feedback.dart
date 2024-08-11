@@ -6,8 +6,6 @@ part 'feedback.g.dart';
 @freezed
 class Feedback with _$Feedback {
   factory Feedback({
-    // required int good,
-    // required int bad,
     required String comment,
   }) = _Feedback;
 
