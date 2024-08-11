@@ -132,7 +132,7 @@ class _AnswerScreenState extends State<AnswerScreen> {
                             ),
                       ),
                       TextSpan(
-                        text: food.foodName,
+                        text: food.detailedFoodName,
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
@@ -161,7 +161,8 @@ class _AnswerScreenState extends State<AnswerScreen> {
     );
 
     final tempDir = await getTemporaryDirectory();
-    final file = await File('${tempDir.path}/${food.foodName}.png').create();
+    final file =
+        await File('${tempDir.path}/${food.detailedFoodName}.png').create();
     file.writeAsBytesSync(uint8list);
 
     snackBar.close();
