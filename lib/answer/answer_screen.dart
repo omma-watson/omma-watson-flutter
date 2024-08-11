@@ -298,11 +298,6 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     ],
                   ),
                 ),
-                // const Divider(
-                //   height: 32,
-                //   thickness: 8,
-                //   color: Color(0xFFD9D9D9),
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 24,
@@ -398,11 +393,6 @@ class _AnswerScreenState extends State<AnswerScreen> {
                     ],
                   ),
                 ),
-                // const Divider(
-                //   height: 32,
-                //   thickness: 8,
-                //   color: Color(0xFFD9D9D9),
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 24,
@@ -427,31 +417,16 @@ class _AnswerScreenState extends State<AnswerScreen> {
   }
 
   Widget bannerSection(int badge) {
-    // String? backgroundImagePath;
-    // String? foregroundImagePath;
     String? bannerImagePath;
-    // double? padding;
 
     if (badge == 0) {
-      // backgroundImagePath = 'assets/recommended_background.png';
-      // foregroundImagePath = 'assets/recommended_character.png';
       bannerImagePath = 'assets/recommend_banner.png';
-      // padding = 0;
     } else if (badge == 1) {
-      // backgroundImagePath = 'assets/satisfactory_background.png';
-      // foregroundImagePath = 'assets/satisfactory_character.png';
       bannerImagePath = 'assets/satisfactory_banner.png';
-      // padding = 4;
     } else if (badge == 2) {
-      // backgroundImagePath = 'assets/caution_background.png';
-      // foregroundImagePath = 'assets/caution_character.png';
       bannerImagePath = 'assets/caution_banner.png';
-      // padding = 25;
     } else if (badge == 3) {
-      // backgroundImagePath = 'assets/dangerous_background.png';
-      // foregroundImagePath = 'assets/dangerous_character.png';
       bannerImagePath = 'assets/dangerous_banner.png';
-      // padding = 6;
     }
 
     return SizedBox(
@@ -570,10 +545,6 @@ class _AnswerScreenState extends State<AnswerScreen> {
         ),
       ),
       const SizedBox(height: 18),
-      // Text(
-      //   food.feedback.comment,
-      //   style: Theme.of(context).textTheme.bodyLarge,
-      // ),
       MarkdownBody(
         data: food.feedback.comment,
         styleSheet: MarkdownStyleSheet(
@@ -780,7 +751,6 @@ String? getTitleTextByBadge(int badge) {
   if (badge == 0) {
     return 'My baby loves\n';
   } else if (badge == 1) {
-    // return ' is okay to eat!';
     return 'Feel free to enjoy\n';
   } else if (badge == 2) {
     return 'Be cautious with\n';

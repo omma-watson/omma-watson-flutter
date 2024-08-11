@@ -22,7 +22,6 @@ class FeedbackRatioBar extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: good >= bad
-                  // ? const Color(0xFF155CFF)
                   ? const Color(0xFF4A81FF)
                   : const Color(0xFF91B2FF),
             ),
@@ -52,7 +51,6 @@ class FeedbackRatioBar extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
               color: bad > good
-                  // ? const Color(0xFFFF4040)
                   ? const Color(0xFFFF7373)
                   : const Color(0xFFFFD7D7),
             ),

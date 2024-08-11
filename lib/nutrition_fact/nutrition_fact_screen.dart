@@ -181,9 +181,6 @@ class NutritionFactScreen extends StatelessWidget {
           builder: (context, snapshot) {
             final nutritionFacts = snapshot.data;
             if (nutritionFacts == null) {
-              // return const Center(
-              //   child: CircularProgressIndicator(),
-              // );
               return Skeletonizer(
                 child: ListView(
                   children:
