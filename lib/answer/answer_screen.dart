@@ -181,8 +181,6 @@ class _AnswerScreenState extends State<AnswerScreen> {
       sharePositionOrigin: shareButtonRect,
     );
     await file.delete();
-
-    snackBar.close();
   }
 
   @override
